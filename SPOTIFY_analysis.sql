@@ -83,30 +83,30 @@ ORDER BY COUNT(track) DESC;
 -- MEDIUM LEVEL QUESTIONS
 -- ----------------------
 
--- Q1 Calculate the average danceablility of track in each album
+-- Q6 Calculate the average danceablility of track in each album
 SELECT DISTINCT album, AVG(danceability)
 FROM spotify 
 GROUP BY album
 ORDER BY AVG(danceability);
--- Q2 Find the top 5 track with the highest energy values
+-- Q7 Find the top 5 track with the highest energy values
 SELECT track, AVG(energy)
 FROM spotify
 GROUP BY 1
 ORDER BY 2 DESC
 LIMIT(5);
--- Q3 List all the tracks along with their views and likes where official_VIDEO = TRUE
+-- Q8 List all the tracks along with their views and likes where official_VIDEO = TRUE
 
 SELECT track, SUM(views) AS totalVIEWS, SUM(likes) AS totalLIKES
 FROM spotify
 WHERE officialvideo = 'TRUE'
 GROUP BY 1
 ORDER BY 2 DESC;
--- Q4 For each album calculate the total views of all associated tracks 
+-- Q9 For each album calculate the total views of all associated tracks 
 SELECT album,track, SUM(views) AS totalviews
 FROM spotify
 GROUP BY 1,2
 ORDER BY 3 DESC;
--- Q5 Retrieve the track names that have been streamed on spotify more than youtube
+-- Q10 Retrieve the track names that have been streamed on spotify more than youtube
 SELECT * FROM
 (SELECT track,
 	COALESCE(SUM(CASE WHEN mostplayedon = 'Youtube' THEN STREAM END),0)AS Stream_on_Youtube,
@@ -122,7 +122,7 @@ WHERE
 -- ADVANCE LEVEL QUESTIONS
 -- -----------------------
 
--- Q1 Find the top 3 most viewed tracks for each artist using window function
+-- Q11 Find the top 3 most viewed tracks for each artist using window function
 WITH ranking_artist 
 AS
 (SELECT 
@@ -135,11 +135,11 @@ GROUP BY 1, 2
 ORDER BY 1,3 DESC)
 SELECT * FROM ranking_artist
 WHERE rank <= 3;
--- Q2 Write a query to find track where the liveness score is above the average
+-- Q12 Write a query to find track where the liveness score is above the average
 SELECT *
 FROM spotify
 WHERE liveness > (SELECT AVG (liveness) FROM spotify);
--- Q3 Use a WITH clause to calculate the difference between the heighest and the lowest energy values for tack in each album
+-- Q13 Use a WITH clause to calculate the difference between the heighest and the lowest energy values for tack in each album
 WITH CTE
 AS
 (SELECT album,
@@ -151,13 +151,13 @@ SELECT album,
 	HIGH - LOW AS difference
 FROM CTE
 ORDER BY 2 DESC
--- Q4 Find the track where the energy-liveness ratio is greater than 1.2
+-- Q14 Find the track where the energy-liveness ratio is greater than 1.2
 SELECT track , energy_liveness 
 FROM spotify
 WHERE energy_liveness > 1.2
 ORDER BY 2 DESC
 
--- Q5 Calculate the cumulative sum of likes for the track 
+-- Q15 Calculate the cumulative sum of likes for the track 
 --ordered by the number of views, using window function
 SELECT 
     artist,
@@ -183,3 +183,4 @@ WHERE artist = 'Gorillaz'
 ORDER BY stream DESC LIMIT(25)
 
 CREATE INDEX artist_index ON spotify(artist);
+
