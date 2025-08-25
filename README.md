@@ -133,4 +133,8 @@ This optimization shows how indexing can drastically reduce query time, improvin
 - **SQL Queries**: DDL, DML, Aggregations, Joins, Subqueries, Window Functions
 - **Tools**: pgAdmin 4 (or any SQL editor), PostgreSQL (via Homebrew, Docker, or direct installation)
 
-This project is licensed under the MIT License.
+## About Dashboard
+- List of top 5 songs according to the artist, you can search the artist in it.
+- You can see the best songs of your favourite artist according to your mood. You have to select the vibe percentage on the dashboard slice buttons; a low percentage means less vibe.
+- Dashboard will give you the total listeners of the songs, give the quantity of listeners on YouTube and Spotify, also you can choose the artist and their songs according to the album type - album, single, compilation.
+
